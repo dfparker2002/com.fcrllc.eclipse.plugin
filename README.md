@@ -1,6 +1,17 @@
 Eclipse Plugin with modern model
 ------------
-GOAL
+### Current status
+Partially working
+- New project window appears
+- Container choice fails to read/accept choices
+
+### Usage
+1. Run project as Eclipse Application
+2. New Project | "Plugin Tutorial with Wizards Multi-page Editor file"
+
+------------
+
+## GOAL
 This is plugin tutorial seed.
 
 We aim to learn eclipse plugin feature development using modern plugin framework and IDE technololgy. 

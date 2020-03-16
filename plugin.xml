@@ -16,15 +16,16 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            name="Sample Wizards"
+            name="Plugin Tutorial with Wizards"
             id="com.fcrllc.eclipse.plugin">
       </category>
       <wizard
-            id="com.fcrllc.eclipse.plugin.wizards.SampleNewWizard"
-            name="Multi-page Editor file"
-            icon="icons/sample.png"
+            category="com.fcrllc.eclipse.plugin"
             class="com.fcrllc.eclipse.plugin.wizards.SampleNewWizard"
-            category="com.fcrllc.eclipse.plugin">
+            icon="icons/sample.png"
+            id="com.fcrllc.eclipse.plugin.wizards.SampleNewWizard"
+            name="Plugin Tutorial with Wizards Multi-page Editor file"
+            project="false">
       </wizard>
    </extension>
 
