@@ -21,7 +21,7 @@
       </category>
       <wizard
             category="com.fcrllc.eclipse.plugin"
-            class="com.fcrllc.eclipse.plugin.wizards.SampleNewWizard"
+            class="com.fcrllc.eclipse.plugin.wizards.TutorialWizard"
             icon="icons/sample.png"
             id="com.fcrllc.eclipse.plugin.wizards.SampleNewWizard"
             name="Plugin Tutorial with Wizards Multi-page Editor file"

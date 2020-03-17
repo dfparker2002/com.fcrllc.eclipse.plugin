@@ -6,6 +6,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -24,19 +25,21 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
  * OR with the extension that matches the expected one (json).
  */
 
-public class SampleNewWizardPage extends WizardPage {
+public class WizardPage0 extends WizardPage {
 	private Text containerText;
 
 	private Text fileText;
 
 	private ISelection selection;
 
+	private Button btnNext;
+
 	/**
 	 * Constructor for SampleNewWizardPage.
 	 * 
 	 * @param pageName
 	 */
-	public SampleNewWizardPage(ISelection selection) {
+	public WizardPage0(ISelection selection) {
 		super("wizardPage");
 		setTitle("Multi-page Editor File");
 		setDescription("This wizard creates a new file with *.json extension that can be opened by a multi-page editor.");
@@ -59,7 +62,7 @@ public class SampleNewWizardPage extends WizardPage {
 		containerText.addModifyListener(e -> dialogChanged());
 
 		Button button = new Button(container, SWT.PUSH);
-		button.setText("Browse...");
+		button.setText("&Browse");
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				handleBrowse();
@@ -72,6 +75,39 @@ public class SampleNewWizardPage extends WizardPage {
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		fileText.setLayoutData(gd);
 		fileText.addModifyListener(e -> dialogChanged());
+
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+		
+		btnNext = new Button(container, SWT.NONE);
+		btnNext.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		btnNext.setText("Next");
+//		btnNext.addKeyListener(new KeyAdapter() {
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				return getNextPage();
+//			}
+//		});
+
 		initialize();
 		dialogChanged();
 		setControl(container);
@@ -160,7 +196,12 @@ public class SampleNewWizardPage extends WizardPage {
 
 	private void updateStatus(String message) {
 		setErrorMessage(message);
-		setPageComplete(message == null);
+		setPageComplete(false);
+	}
+
+	@Override
+	public boolean canFlipToNextPage() {
+		return super.canFlipToNextPage();
 	}
 
 	public String getContainerName() {
@@ -170,4 +211,20 @@ public class SampleNewWizardPage extends WizardPage {
 	public String getFileName() {
 		return fileText.getText();
 	}
+
+	public Button getBtnNext() {
+		return btnNext;
+	}
+
+/*
+ * TODO delegate this to Wizard manager or commmand manager class
+ */
+	@Override
+	public IWizardPage getNextPage() {
+
+//		saveDataToModel();
+		System.out.printf("Move to next: %s to %s", super.getPreviousPage().getName(), getName() );
+		return super.getNextPage();
+	}
+
 }

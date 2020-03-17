@@ -1,6 +1,7 @@
 package com.fcrllc.eclipse.plugin.wizards;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -26,14 +27,16 @@ import org.eclipse.ui.ide.IDE;
  * be able to open it.
  */
 
-public class SampleNewWizard extends Wizard implements INewWizard {
-	private SampleNewWizardPage page;
+public class TutorialWizard extends Wizard implements INewWizard {
+
+	private WizardPage0 page0;
+	private WizardPage1 page1;
 	private ISelection selection;
 
 	/**
 	 * Constructor for SampleNewWizard.
 	 */
-	public SampleNewWizard() {
+	public TutorialWizard() {
 		super();
 		setNeedsProgressMonitor(true);
 	}
@@ -43,8 +46,11 @@ public class SampleNewWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public void addPages() {
-		page = new SampleNewWizardPage(selection);
-		addPage(page);
+		page0 = new WizardPage0(selection);
+		page1 = new WizardPage1(selection);
+		
+		addPage(page0);
+		addPage(page1);
 	}
 
 	/**
@@ -54,8 +60,10 @@ public class SampleNewWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		final String containerName = page.getContainerName();
-		final String fileName = page.getFileName();
+		final String containerName = page0.getContainerName();
+		final String fileName = page0.getFileName();
+		final String txt0 = page1.getText0();
+		final String txt1 = page1.getText1();
 		IRunnableWithProgress op = monitor -> {
 			try {
 				doFinish(containerName, fileName, monitor);
@@ -135,6 +143,53 @@ public class SampleNewWizard extends Wizard implements INewWizard {
 			new Status(IStatus.ERROR, "com.fcrllc.eclipse.plugin", IStatus.OK, message, null);
 		throw new CoreException(status);
 	}
+	
+	public IWizardPage getNextPage() {
+		/*
+		 * TODO serialize data to beans -> JSON
+		 * TODO bind to page0 next button ONLY 
+		 */
+//		saveDataToModel();
+		if ( !page0.canFlipToNextPage() ) return null;
+		if ( null != page0.getErrorMessage() ) return null;
+		return this.getNextPage();
+//		}
+// fall out condition
+//		return null;
+	}
+
+	public IWizardPage getPreviousPage() {
+/*
+ * TODO serialize data to beans -> JSON
+ * TODO bind to page1 next button ONLY 
+ */
+//		saveDataToModel();
+		if ( !page1.canFlipToNextPage() ) return null;
+		if ( null != page1.getErrorMessage() ) return null;
+			return this.getPreviousPage();
+//		}
+	}
+
+
+//	/**
+//	 * If this WizardHopPage has a wizardHop set, the hop will be asked for the next
+//	 * page, otherwise the wizard of this page (if set) will be asked.
+//	 *
+//	 * @see org.eclipse.jface.wizard.WizardPage#getNextPage()
+//	 */
+//	public IWizardPage getNextPage() {
+//
+//		if (this != null && page1 != null)
+//			return this.getNextPage(page1);
+////		else {
+////			if (this.. getWizard() != null)
+////				return wizardPage.getWizard().getNextPage(wizardPage);
+////			else
+////				throw new IllegalStateException(
+////						"wizardHop AND wizard are not assigned! If this is the entry-page of a WizardHop, no WizardHop has been created in the constructor! Call 'new WizardHop(this);' in the constructor of " + //$NON-NLS-1$
+////						this.getClass().getName()+". If this should be used as normal WizardPage, add it to the wizard."); //$NON-NLS-1$
+////		}
+//	}
 
 	/**
 	 * We will accept the selection in the workbench to see if
